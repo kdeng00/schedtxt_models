@@ -23,7 +23,7 @@ jobs:
       - name: Create version
         id: version
         run: |
-          VERSION=$(git tag --sort=-version:refname | sed 's/-\(main\|devel\).*//' | uniq | head -n 1)
+          VERSION=$(git tag | grep -o '^v[0-9.]*' | sort -V | uniq | tail -n 1)
           PROJECT_COMMIT_HASH=$(git rev-parse HEAD | cut -c 1-10)
           BRANCH_REF="${{ gitea.ref }}"
           BRANCH_NAME=$(echo "$BRANCH_REF" | cut -d '/' -f 3)
