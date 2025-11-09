@@ -1,9 +1,8 @@
 package scheduling
 
-
 const (
-	Ready = "READY"
-	Pending = "PENDING"
+	Ready      = "READY"
+	Pending    = "PENDING"
 	Processing = "PROCESSING"
-	Done = "DONE"
+	Done       = "DONE"
 )
