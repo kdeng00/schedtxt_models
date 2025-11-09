@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type ScheduledEvent struct {
+type ScheduledMessageEvent struct {
 	Id                 uuid.UUID `json:"id"`
 	RecipientId        uuid.UUID `json:"recipient_id"`
 	MessageId          uuid.UUID `json:"message_id"`
