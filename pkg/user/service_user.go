@@ -7,7 +7,7 @@ import (
 )
 
 type ServiceUser struct {
-	Id uuid.UUID `json:"id"`
-	Passphrase string `json:"passphrase,omitempty"`
-	Created *time.Time `json:"date_created,omitempty"`
+	Id         uuid.UUID  `json:"id"`
+	Passphrase string     `json:"passphrase,omitempty"`
+	Created    *time.Time `json:"date_created,omitempty"`
 }
