@@ -9,9 +9,9 @@ import (
 )
 
 type MessageEventResponse struct {
-	Id                      uuid.UUID `json:"id,omitempty"`
-	ScheduledMessageEventId uuid.UUID `json:"scheduled_message_event_id,omitempty"`
-	Response                types.JSONB    `json:"response"`
-	UserId                  uuid.UUID `json:"user_id,omitempty"`
-	Sent                    time.Time `json:"sent"`
+	Id                      uuid.UUID   `json:"id,omitempty"`
+	ScheduledMessageEventId uuid.UUID   `json:"scheduled_message_event_id,omitempty"`
+	Response                types.JSONB `json:"response"`
+	UserId                  uuid.UUID   `json:"user_id,omitempty"`
+	Sent                    time.Time   `json:"sent"`
 }
