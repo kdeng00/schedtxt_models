@@ -11,8 +11,13 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-type Login struct {
-	AccessToken string `json:"access_token"`
-	TokenType   string `json:"token_type"`
-	ExpiresIn   int64  `json:"expires_in"`
+type LoginResult struct {
+	UserId      uuid.UUID `json:"user_id"`
+	AccessToken string    `json:"access_token"`
+	TokenType   string    `json:"token_type"`
+	ExpiresIn   int64     `json:"expires_in"`
 }
+
+// Alias for LoginResult
+// Will be deprecated at some point
+type Login = LoginResult
