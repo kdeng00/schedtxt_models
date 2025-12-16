@@ -12,6 +12,7 @@ type Claims struct {
 }
 
 type Login struct {
+	UserId uuid.UUID `json:"user_id"`
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	ExpiresIn   int64  `json:"expires_in"`
