@@ -15,7 +15,7 @@ type MessageEventResponse struct {
 	UserId                  uuid.UUID   `json:"user_id,omitempty"`
 	ContactId               *uuid.UUID  `json:"contact_id,omitempty"`
 	MessageId               *uuid.UUID  `json:"message_id,omitempty"`
-	Status                  string     `json:"status"`
+	Status                  string      `json:"status"`
 	Sent                    time.Time   `json:"sent"`
 }
 
