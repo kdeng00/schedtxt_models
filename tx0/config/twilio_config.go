@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type TwiloConfig struct {
+type TwilioConfig struct {
 	AccountSID string `json:"auth_sid"`
 	ServiceSID string `json:"service_sid"`
 	URI        string `json:"uri"`
@@ -12,10 +12,11 @@ type TwiloConfig struct {
 	Number     string `json:"phone_number"`
 }
 
-func (config *TwiloConfig) PrintConfig() {
-	fmt.Printf("Account SID: %s\n", config.AccountSID)
-	fmt.Printf("Service SID: %s\n", config.ServiceSID)
+func (config *TwilioConfig) PrintConfig() {
+	fmt.Println("Twilio config")
+	fmt.Println("Account SID:", config.AccountSID)
+	fmt.Println("Service SID:", config.ServiceSID)
 	fmt.Println("URI:", config.URI)
-	fmt.Printf("Auth Token: %s\n", config.AuthToken)
-	fmt.Printf("Number: %s\n", config.Number)
+	fmt.Println("Auth Token:", config.AuthToken)
+	fmt.Println("Number:", config.Number)
 }

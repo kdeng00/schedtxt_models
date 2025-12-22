@@ -5,7 +5,10 @@ import (
 )
 
 type Contact struct {
-	Id          uuid.UUID `json:"id,omitempty"`
-	PhoneNumber string    `json:"phone_number,omitempty"`
-	UserId      uuid.UUID `json:"user_id,omitempty"`
+	Id          *uuid.UUID `json:"id,omitempty"`
+	Firstname   *string    `json:"first_name,omitempty"`
+	Lastname    *string    `json:"last_name,omitempty"`
+	Nickname    *string    `json:"nickname,omitempty"`
+	PhoneNumber string     `json:"phone_number"`
+	UserId      *uuid.UUID `json:"user_id,omitempty"`
 }
