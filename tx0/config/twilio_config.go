@@ -4,7 +4,6 @@ import (
 	"fmt"
 )
 
-
 type TwilioConfig struct {
 	AccountSID string `json:"auth_sid"`
 	ServiceSID string `json:"service_sid"`
