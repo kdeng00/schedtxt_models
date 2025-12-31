@@ -6,6 +6,7 @@ import (
 	"fmt"
 )
 
+// NOTE: Might end up removing this
 type JSONB json.RawMessage
 
 // Scan implements sql.Scanner
