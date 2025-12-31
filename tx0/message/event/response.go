@@ -1,4 +1,4 @@
-package message
+package event
 
 import (
 	"time"
@@ -18,8 +18,3 @@ type MessageEventResponse struct {
 	Status                  string      `json:"status"`
 	Sent                    time.Time   `json:"sent"`
 }
-
-const (
-	Message_Event_Response_Status_Instant   = "INSTANT"
-	Message_Event_Response_Status_Scheduled = "SCHEDULED"
-)
