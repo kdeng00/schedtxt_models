@@ -13,6 +13,6 @@ type User struct {
 	Password    string     `json:"password"`
 	Firstname   *string    `json:"first_name,omitempty"`
 	Lastname    *string    `json:"last_name,omitempty"`
-	Created     time.Time  `json:"date_created"`
+	Created     time.Time  `json:"created"`
 	LastLogin   *time.Time `json:"last_login,omitempty"`
 }

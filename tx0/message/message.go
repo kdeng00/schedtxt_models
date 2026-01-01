@@ -5,7 +5,7 @@ import (
 )
 
 type Message struct {
-	Id      uuid.UUID `json:"id"`
-	Content string    `json:"content,omitempty"`
-	UserId  uuid.UUID `json:"user_id"`
+	Id      *uuid.UUID `json:"id,omitempty"`
+	Content string     `json:"content"`
+	UserId  *uuid.UUID `json:"user_id,omitempty"`
 }
