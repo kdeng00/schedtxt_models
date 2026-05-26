@@ -9,7 +9,7 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, done bool) {
 	if usr == nil {
 		return nil, false
 	} else {
-		userProfile = new(UserProfile)
+		usrProfile = new(UserProfile)
 		if len(usr.Password) > 0 {
 			var newUsr User
 			newUsr = *usr
