@@ -11,7 +11,7 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, done bool) {
 	} else {
 		if len(usr.Password) > 0 {
 			var newUsr User
-			newUsr := *usr
+			newUsr = *usr
 			newUsr.Password = ""
 			usrProfile.Usr = &newUsr
 
