@@ -7,10 +7,7 @@ import (
 )
 
 func TestInitUserProfile(t *testing.T) {
-	usr := User{}
-	usr.Username = "Bob"
-	usr.PhoneNumber = "+12224572351"
-	usr.Password = "TheNight!"
+	usr := User{Username: "Bob", PhoneNumber: "+12224572351", Password: "TheNight!"}
 
 	profile, done := InitUserProfile(&usr)
 
