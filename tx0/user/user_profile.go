@@ -10,13 +10,14 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, done bool) {
 		return nil, false
 	} else {
 		if len(usr.Password) > 0 {
-			newUsr := usr
+			var newUsr User
+			newUsr := *usr
 			newUsr.Password = ""
-			usrProfile.Usr = newUsr
+			usrProfile.Usr = &newUsr
 
 			return usrProfile, true
 		} else {
-			usrProfile.Usr = newUsr
+			usrProfile.Usr = usr
 			return usrProfile, true
 		}
 	}
