@@ -2,6 +2,8 @@ package user
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 
@@ -29,9 +31,10 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, done bool) {
 
 func TestInitUserProfile(t *testing.T) {
 	usr := User{}
-	usr.username = "Bob"
-	usr.Phone = "+12224572351"
+	usr.Username = "Bob"
+	usr.PhoneNumber = "+12224572351"
 	usr.Password = "TheNight!"
 	profile, done := InitUserProfile(&usr)
-	t.Assert(done, true, "Error")
+	assert.Equal(t, done, true, "Error")
+	assert.NotEmpty(t, profile, "UserProfile is empty")
 }
