@@ -13,4 +13,6 @@ func TestInitUserProfile(t *testing.T) {
 
 	assert.Equal(t, done, true, "Error")
 	assert.NotEmpty(t, profile, "UserProfile is empty")
+
+	assert.Empty(t, profile.Usr.Password, "Password should be empty")
 }
