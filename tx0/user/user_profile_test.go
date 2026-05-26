@@ -9,9 +9,9 @@ import (
 func TestInitUserProfile(t *testing.T) {
 	usr := User{Username: "Bob", PhoneNumber: "+12224572351", Password: "TheNight!"}
 
-	profile, done := InitUserProfile(&usr)
+	profile, err := InitUserProfile(&usr)
 
-	assert.Equal(t, done, true, "Error")
+	assert.NoError(t, err, "Error %v", err)
 	assert.NotEmpty(t, profile, "UserProfile is empty")
 
 	assert.Empty(t, profile.Usr.Password, "Password should be empty")
