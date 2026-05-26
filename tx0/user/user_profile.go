@@ -1,5 +1,9 @@
 package user
 
+import (
+	"testing"
+)
+
 
 type UserProfile struct {
 	Usr *User `json:"user"`
@@ -21,4 +25,13 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, done bool) {
 			return usrProfile, true
 		}
 	}
+}
+
+func TestInitUserProfile(t *testing.T) {
+	usr := User{}
+	usr.username = "Bob"
+	usr.Phone = "+12224572351"
+	usr.Password = "TheNight!"
+	profile, done := InitUserProfile(&usr)
+	t.Assert(done, true, "Error")
 }
