@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// TODO: Replace Usr with all the fields from User, except Password and other sensitive fields
 type UserProfile struct {
 	Usr *User `json:"user"`
 }
