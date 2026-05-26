@@ -10,7 +10,7 @@ type UserProfile struct {
 
 func InitUserProfile(usr *User) (usrProfile *UserProfile, err error) {
 	if usr == nil {
-		return nil, fmt.Errof("User is empty")
+		return nil, fmt.Errorf("User is empty")
 	} else {
 		usrProfile = new(UserProfile)
 		if len(usr.Password) > 0 {
