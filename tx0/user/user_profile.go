@@ -26,8 +26,12 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, err error) {
 			usrProfile.UserId = usr.Id
 			usrProfile.PhoneNumber = usr.PhoneNumber
 			usrProfile.Username = usr.Username
-			usrProfile.Firstname = *usr.Firstname
-			usrProfile.Lastname = *usr.Lastname
+			if usr.Firstname != nil {
+				usrProfile.Firstname = *usr.Firstname
+			}
+			if usr.Lastname != nil {
+				usrProfile.Lastname = *usr.Lastname
+			}
 			usrProfile.Created = usr.Created
 			if usr.LastLogin != nil {
 				usrProfile.LastLogin = usr.LastLogin
