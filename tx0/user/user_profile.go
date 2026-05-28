@@ -22,7 +22,7 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, err error) {
 	if usr == nil {
 		return nil, fmt.Errorf("User is empty")
 	} else {
-		// usrProfile = new(UserProfile)
+		 usrProfile = new(UserProfile)
 			usrProfile.UserId = usr.Id
 			usrProfile.PhoneNumber = usr.PhoneNumber
 			usrProfile.Username = usr.Username
