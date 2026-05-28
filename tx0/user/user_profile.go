@@ -2,6 +2,9 @@ package user
 
 import (
 	"fmt"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 // TODO: Replace Usr with all the fields from User, except Password and other sensitive fields
@@ -26,8 +29,8 @@ func InitUserProfile(usr *User) (usrProfile *UserProfile, err error) {
 			usrProfile.UserId = usr.Id
 			usrProfile.PhoneNumber = usr.PhoneNumber
 			usrProfile.Username = usr.Username
-			usrProfile.Firstname = usr.Firstname
-			usrProfile.Lastname = usr.Lastname
+			usrProfile.Firstname = *usr.Firstname
+			usrProfile.Lastname = *usr.Lastname
 			usrProfile.Created = usr.Created
 			if usr.LastLogin != nil {
 				usrProfile.LastLogin = usr.LastLogin
