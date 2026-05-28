@@ -7,13 +7,13 @@ import (
 	"github.com/google/uuid"
 )
 
-// TODO: Replace Usr with all the fields from User, except Password and other sensitive fields
+
 type UserProfile struct {
 	UserId uuid.UUID `json:"user_id"`
 	PhoneNumber string `json:"phone_number"`
 	Username string `json:"username"`
-	Firstname string `json:"firstname"`
-	Lastname string `json:"lastname"`
+	Firstname *string `json:"firstname,omitempty"`
+	Lastname *string `json:"lastname,omitempty"`
 	Created time.Time `json:"created"`
 	LastLogin *time.Time `json:"last_login,omitempty"`
 }
