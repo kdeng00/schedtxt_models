@@ -14,8 +14,8 @@ type UserProfile struct {
 	Username string `json:"username"`
 	Firstname string `json:"firstname"`
 	Lastname string `json:"lastname"`
-	Created time `json:"created"`
-	LastLogin *time `json:"last_login,omitempty"`
+	Created time.Time `json:"created"`
+	LastLogin *time.Time `json:"last_login,omitempty"`
 }
 
 func InitUserProfile(usr *User) (usrProfile *UserProfile, err error) {
