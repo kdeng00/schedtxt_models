@@ -19,7 +19,6 @@ pub struct User {
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct ServiceUser {
     pub id: uuid::Uuid,
-    // TODO: Remove the omitempty tags at a later point
     pub username: String,
     pub passphrase: String,
     pub created: Option<time::OffsetDateTime>,
