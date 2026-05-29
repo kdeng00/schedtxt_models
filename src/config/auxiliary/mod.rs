@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct TwilioConfig {
     // #[serde(skip_serializing_if = "init::is_uuid_nil")]
@@ -16,11 +15,10 @@ pub struct TwilioConfig {
 
 impl TwilioConfig {
     pub fn print_config(&self) {
-	println!("Twilio config");
-	println!("Account SID: {:?}", self.account_sid);
-	println!("Service SID: {:?}", self.service_sid);
-	println!("Auth Token: {:?}", self.auth_token);
-	println!("Number: {:?}", self.phone_number);
+        println!("Twilio config");
+        println!("Account SID: {:?}", self.account_sid);
+        println!("Service SID: {:?}", self.service_sid);
+        println!("Auth Token: {:?}", self.auth_token);
+        println!("Number: {:?}", self.phone_number);
     }
 }
-
