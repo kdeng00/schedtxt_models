@@ -21,6 +21,7 @@ pub struct ServiceUser {
     pub id: uuid::Uuid,
     pub username: String,
     pub passphrase: String,
+    #[serde(with = "time::serde::rfc3339::option")]
     pub created: Option<time::OffsetDateTime>,
     // When serializing to json, if empty do not populate
     #[serde(with = "time::serde::rfc3339::option")]
