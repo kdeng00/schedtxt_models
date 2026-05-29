@@ -3,10 +3,10 @@ name: Rust Build
 on:
   push:
     branches:
-      - main 
+      - v0.3.0-migrate
   pull_request:
     branches:
-      - main 
+      - v0.3.0-migrate
 
 jobs:
   check:
