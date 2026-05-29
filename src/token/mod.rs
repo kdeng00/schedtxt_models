@@ -15,9 +15,5 @@ pub struct LoginResult {
     pub issued_at: i64,
 }
 
-// Make alias for LoginResult for Login
-
 // Alias for LoginResult
-// Will be deprecated at some point
-// type Login = LoginResult
-type Login = LoginResult;
+pub type Login = LoginResult;
