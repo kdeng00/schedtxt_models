@@ -20,10 +20,10 @@ pub struct User {
 pub struct ServiceUser {
     pub id: uuid::Uuid,
     // TODO: Remove the omitempty tags at a later point
-	pub username:  String,
-	pub passphrase: String,
-	pub created:   Option<time::OffsetDateTime>,
+    pub username: String,
+    pub passphrase: String,
+    pub created: Option<time::OffsetDateTime>,
     // When serializing to json, if empty do not populate
     #[serde(with = "time::serde::rfc3339::option")]
-	pub last_login: Option<time::OffsetDateTime>,
+    pub last_login: Option<time::OffsetDateTime>,
 }
