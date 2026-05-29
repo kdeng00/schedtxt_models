@@ -2,7 +2,6 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct TwilioConfig {
-    // #[serde(skip_serializing_if = "init::is_uuid_nil")]
     #[serde(alias = "auth_id")]
     pub account_sid: uuid::Uuid,
     #[serde(skip_serializing_if = "String::is_empty")]
