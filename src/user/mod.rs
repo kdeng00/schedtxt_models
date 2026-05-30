@@ -56,14 +56,15 @@ pub struct UserProfile {
 }
 
 pub fn init_user_profile(usr: &User) -> UserProfile {
-    let mut usrProfile = UserProfile::default();
-    usrProfile.user_id = usr.id.clone();
-    usrProfile.phone_number = usr.phone_number.clone();
-    usrProfile.username = usr.username.clone();
-    usrProfile.firstname = usr.firstname.clone();
-    usrProfile.lastname = usr.lastname.clone();
-    usrProfile.created = usr.created.clone();
-    usrProfile.last_login = usr.last_login.clone();
+    let usr_profile = UserProfile {
+    user_id: usr.id.clone(),
+    phone_number: usr.phone_number.clone(),
+    username: usr.username.clone(),
+    firstname: usr.firstname.clone(),
+    lastname: usr.lastname.clone(),
+    created: usr.created.clone(),
+    last_login: usr.last_login.clone(),
+    };
 
-    return usrProfile;
+    return usr_profile;
 }
