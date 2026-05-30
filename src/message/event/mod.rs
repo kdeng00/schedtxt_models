@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 
-pub const Message_Event_Response_Status_Instant: &str   = "INSTANT";
-pub const Message_Event_Response_Status_Scheduled: &str = "SCHEDULED";
+pub const MESSAGE_EVENT_RESPONSE_STATUS_INSTANT: &str   = "INSTANT";
+pub const MESSAGE_EVENT_RESPONSE_STATUS_SCHEDULED: &str = "SCHEDULED";
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct MessageEventResponse {
