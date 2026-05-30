@@ -66,3 +66,24 @@ pub fn init_user_profile(usr: &User) -> UserProfile {
         last_login: usr.last_login,
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_init_user_profile() {
+        let usr = super::User {
+            id: uuid::Uuid::new_v4(),
+            phone_number: String::from("+12308438462"),
+            username: String::from("Cowboy99"),
+            password: String::from("238n7cyr2q89d3xhe2"),
+            firstname: String::from("BillyBob"),
+            lastname: String::from("Jones"),
+            created: Some(time::OffsetDateTime::now_utc()),
+            last_login: Some(time::OffsetDateTime::now_utc()),
+            ..Default::default()
+        };
+
+        let profile = super::init_user_profile(&usr);
+        assert_eq!(usr.phone_number, profile.phone_number, "Phone numbers are not equal");
+    }
+}
