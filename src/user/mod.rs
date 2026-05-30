@@ -27,3 +27,19 @@ pub struct ServiceUser {
     #[serde(with = "time::serde::rfc3339::option")]
     pub last_login: Option<time::OffsetDateTime>,
 }
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct UserLoginHistory {
+    pub id: uuid::Uuid,
+    #[serde(with = "time::serde::rfc3339::option")]
+    pub login_time: Option<time::OffsetDateTime>,
+    pub user_id: uuid::Uuid,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct ServiceUserLoginHistory {
+    pub id: uuid::Uuid,
+    #[serde(with = "time::serde::rfc3339::option")]
+    pub login_time: Option<time::OffsetDateTime>,
+    pub service_user_id: uuid::Uuid,
+}
