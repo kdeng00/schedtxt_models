@@ -43,3 +43,26 @@ pub struct ServiceUserLoginHistory {
     pub login_time: Option<time::OffsetDateTime>,
     pub service_user_id: uuid::Uuid,
 }
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct UserProfile {
+    pub user_id: uuid::Uuid,
+    pub phone_number: String,
+    pub username: String,
+    pub firstname: String,
+    pub lastname: String,
+    pub created: Option<time::OffsetDateTime>,
+    pub last_login: Option<time::OffsetDateTime>,
+}
+
+pub fn init_user_profile(usr: &User) -> UserProfile {
+    UserProfile {
+        user_id: usr.id,
+        phone_number: usr.phone_number.clone(),
+        username: usr.username.clone(),
+        firstname: usr.firstname.clone(),
+        lastname: usr.lastname.clone(),
+        created: usr.created,
+        last_login: usr.last_login,
+    }
+}
