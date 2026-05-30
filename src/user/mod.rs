@@ -28,7 +28,6 @@ pub struct ServiceUser {
     pub last_login: Option<time::OffsetDateTime>,
 }
 
-
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct UserLoginHistory {
     pub id: uuid::Uuid,
