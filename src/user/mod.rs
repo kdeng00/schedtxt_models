@@ -57,13 +57,13 @@ pub struct UserProfile {
 
 pub fn init_user_profile(usr: &User) -> UserProfile {
     let usr_profile = UserProfile {
-    user_id: usr.id,
-    phone_number: usr.phone_number.clone(),
-    username: usr.username.clone(),
-    firstname: usr.firstname.clone(),
-    lastname: usr.lastname.clone(),
-    created: usr.created,
-    last_login: usr.last_login,
+        user_id: usr.id,
+        phone_number: usr.phone_number.clone(),
+        username: usr.username.clone(),
+        firstname: usr.firstname.clone(),
+        lastname: usr.lastname.clone(),
+        created: usr.created,
+        last_login: usr.last_login,
     };
 
     usr_profile
