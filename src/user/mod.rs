@@ -14,6 +14,8 @@ pub struct User {
     pub created: Option<time::OffsetDateTime>,
     #[serde(with = "time::serde::rfc3339::option")]
     pub last_login: Option<time::OffsetDateTime>,
+    #[serde(skip)]
+    pub salt_id: uuid::Uuid,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -26,6 +28,8 @@ pub struct ServiceUser {
     // When serializing to json, if empty do not populate
     #[serde(with = "time::serde::rfc3339::option")]
     pub last_login: Option<time::OffsetDateTime>,
+    #[serde(skip)]
+    pub salt_id: uuid::Uuid,
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
@@ -63,6 +67,24 @@ pub struct UserProfile {
     pub created: Option<time::OffsetDateTime>,
     #[serde(with = "time::serde::rfc3339::option")]
     pub last_login: Option<time::OffsetDateTime>,
+}
+
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct Salt {
+    #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
+    pub id: uuid::Uuid,
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub salt: String,
+}
+
+impl Salt {
+    pub fn to_json(&self, output_pretty: bool) -> Result<String, serde_json::Error> {
+        if output_pretty {
+            serde_json::to_string_pretty(&self)
+        } else {
+            serde_json::to_string(&self)
+        }
+    }
 }
 
 pub fn init_user_profile(usr: &User) -> UserProfile {
