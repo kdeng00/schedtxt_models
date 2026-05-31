@@ -41,7 +41,8 @@ pub mod error {
     pub const SERVICE_LOGIN: &str = concatcp!(super::SERVICE_PASSPHRASE, " ", GENERAL_ERROR);
     pub const SECRET_KEY: &str = concatcp!(super::SECRET_KEY, " ", GENERAL_ERROR);
     pub const ROOT_DIRECTORY: &str = concatcp!(super::ROOT_DIRECTORY, " ", GENERAL_ERROR);
-    pub const TEXTSENDER_BASE_API_URL: &str = concatcp!(super::TEXTSENDER_BASE_API_URL, " ", GENERAL_ERROR);
+    pub const TEXTSENDER_BASE_API_URL: &str =
+        concatcp!(super::TEXTSENDER_BASE_API_URL, " ", GENERAL_ERROR);
     pub const TEXTSENDER_AUTH_BASE_API_URL: &str =
         concatcp!(super::TEXTSENDER_AUTH_BASE_API_URL, " ", GENERAL_ERROR);
     pub const APP_ENV: &str = concatcp!(super::APP_ENV, " ", GENERAL_ERROR);

@@ -37,4 +37,3 @@ pub fn init_delimiter(envvar: &mut EnvVar, delimiter: char) {
         envvar.has_delimiter = has_delimiter;
     }
 }
-
