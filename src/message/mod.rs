@@ -1,4 +1,5 @@
 pub mod event;
+pub mod scheduling;
 
 use serde::{Deserialize, Serialize};
 
