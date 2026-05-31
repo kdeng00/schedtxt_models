@@ -12,7 +12,7 @@ pub struct Claims {
     pub issued_at: i64,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
 pub struct LoginResult {
     pub user_id: uuid::Uuid,
     pub access_token: String,
@@ -37,7 +37,7 @@ mod util {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, utoipa::ToSchema)]
 pub struct TokenResource {
     pub message: String,
     pub issuer: String,
