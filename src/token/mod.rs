@@ -24,8 +24,6 @@ pub struct LoginResult {
 // Alias for LoginResult
 pub type Login = LoginResult;
 
-
-
 pub fn get_issued() -> time::Result<time::OffsetDateTime> {
     Ok(time::OffsetDateTime::now_utc())
 }
