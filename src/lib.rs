@@ -8,12 +8,8 @@ pub mod user;
 pub mod init {
     pub fn is_uuid_nil(uuid: &Option<uuid::Uuid>) -> bool {
         match uuid {
-            Some(id) => {
-                id.is_nil()
-            }
-            None => {
-                true
-            }
+            Some(id) => id.is_nil(),
+            None => true,
         }
     }
 }
