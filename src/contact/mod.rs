@@ -2,14 +2,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Contact {
-    pub id: uuid::Uuid,
+    #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
+    pub id: Option<uuid::Uuid>,
     // empty?
-    pub firstname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub firstname: Option<String>,
     // empty?
-    pub lastname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub lastname: Option<String>,
     // empty?
-    pub nickname: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub nickname: Option<String>,
     pub phone_number: String,
     // empty
-    pub user_id: uuid::Uuid,
+    #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
+    pub user_id: Option<uuid::Uuid>,
 }

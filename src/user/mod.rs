@@ -71,7 +71,7 @@ pub struct UserProfile {
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Salt {
-    #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
+    // #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
     pub id: uuid::Uuid,
     #[serde(skip_serializing_if = "String::is_empty")]
     pub salt: String,
