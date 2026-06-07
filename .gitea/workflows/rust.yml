@@ -3,10 +3,10 @@ name: Rust Build
 on:
   push:
     branches:
-      - v0.3.0-migrate
+      - main
   pull_request:
     branches:
-      - v0.3.0-migrate
+      - main
 
 jobs:
   check:
@@ -17,6 +17,7 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: 1.95
+      - uses: Swatinem/rust-cache@v2
       - run: cargo check
 
   test:
@@ -27,6 +28,7 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: 1.95
+      - uses: Swatinem/rust-cache@v2
       - run: cargo test
 
   fmt:
@@ -37,6 +39,7 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: 1.95
+      - uses: Swatinem/rust-cache@v2
       - run: rustup component add rustfmt
       - run: cargo fmt --all -- --check
 
@@ -48,6 +51,7 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: 1.95
+      - uses: Swatinem/rust-cache@v2
       - run: rustup component add clippy
       - run: cargo clippy -- -D warnings
 
@@ -59,4 +63,5 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: 1.95
+      - uses: Swatinem/rust-cache@v2
       - run: cargo build

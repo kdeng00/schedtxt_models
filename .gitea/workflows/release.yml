@@ -3,10 +3,10 @@ name: Release Tagging
 on:
   push:
     branches:
-      - v0.3.0-migrate
+      - main
   pull_request:
     branches:
-      - v0.3.0-migrate
+      - main
 
 jobs:
   release:
