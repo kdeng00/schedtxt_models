@@ -3,7 +3,7 @@ name = "textsender_models"
 version = "0.2.5"
 edition = "2024"
 rust-version = "1.95"
-description = "models used for the textsender project"
+description = "Models used for the textsender project"
 
 [dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
