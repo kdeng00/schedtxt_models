@@ -42,7 +42,7 @@ pub struct LoginResult {
     pub issued_at: i64,
 }
 
-// Alias for LoginResult
+/// Alias for LoginResult
 pub type Login = LoginResult;
 
 pub fn get_issued() -> time::Result<time::OffsetDateTime> {
@@ -66,6 +66,7 @@ pub struct TokenResource {
     pub user_id: uuid::Uuid,
 }
 
+/// Token type
 pub const TOKEN_TYPE: &str = "JWT";
 
 pub fn create_token(
