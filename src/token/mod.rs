@@ -7,9 +7,30 @@ pub struct Claims {
     #[serde(alias = "iss")]
     pub issued: String,
     #[serde(alias = "exp")]
+    #[serde(deserialize_with = "deserialize_i64_from_f64")]
     pub expired: i64,
     #[serde(alias = "iat")]
+    #[serde(deserialize_with = "deserialize_i64_from_f64")]
     pub issued_at: i64,
+}
+
+fn deserialize_i64_from_f64<'de, D>(deserializer: D) -> Result<i64, D::Error>
+where
+    D: serde::Deserializer<'de>,
+{
+    let val = f64::deserialize(deserializer)?;
+    // Handle NaN and infinity cases
+    if val.is_nan() || val.is_infinite() {
+        return Err(serde::de::Error::custom("invalid float value"));
+    }
+    // Round to nearest integer and convert
+    let rounded = val.round();
+    // Check if the rounded value can fit in i64
+    if rounded < (i64::MIN as f64) || rounded > (i64::MAX as f64) {
+        Err(serde::de::Error::custom("float out of i64 range"))
+    } else {
+        Ok(rounded as i64)
+    }
 }
 
 #[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
