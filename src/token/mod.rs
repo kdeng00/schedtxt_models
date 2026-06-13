@@ -3,7 +3,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Claims {
     pub user_id: uuid::Uuid,
-    pub role: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub role: Option<String>,
     #[serde(alias = "iss")]
     pub issued: String,
     #[serde(alias = "exp")]
@@ -42,7 +43,7 @@ pub struct LoginResult {
     pub issued_at: i64,
 }
 
-// Alias for LoginResult
+/// Alias for LoginResult
 pub type Login = LoginResult;
 
 pub fn get_issued() -> time::Result<time::OffsetDateTime> {
@@ -63,9 +64,10 @@ pub struct TokenResource {
     pub message: String,
     pub issuer: String,
     pub audiences: Vec<String>,
-    pub id: uuid::Uuid,
+    pub user_id: uuid::Uuid,
 }
 
+/// Token type
 pub const TOKEN_TYPE: &str = "JWT";
 
 pub fn create_token(
@@ -83,8 +85,8 @@ pub fn create_token(
     payload.set_subject(message);
     payload.set_issuer(issuer);
     payload.set_audience(audiences.clone());
-    if !token_resource.id.is_nil() {
-        match payload.set_claim("id", Some(serde_json::json!(token_resource.id))) {
+    if !token_resource.user_id.is_nil() {
+        match payload.set_claim("user_id", Some(serde_json::json!(token_resource.user_id))) {
             Ok(_) => {}
             Err(err) => {
                 return Err(err);
