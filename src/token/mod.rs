@@ -63,7 +63,7 @@ pub struct TokenResource {
     pub message: String,
     pub issuer: String,
     pub audiences: Vec<String>,
-    pub id: uuid::Uuid,
+    pub user_id: uuid::Uuid,
 }
 
 pub const TOKEN_TYPE: &str = "JWT";
@@ -83,8 +83,8 @@ pub fn create_token(
     payload.set_subject(message);
     payload.set_issuer(issuer);
     payload.set_audience(audiences.clone());
-    if !token_resource.id.is_nil() {
-        match payload.set_claim("id", Some(serde_json::json!(token_resource.id))) {
+    if !token_resource.user_id.is_nil() {
+        match payload.set_claim("user_id", Some(serde_json::json!(token_resource.user_id))) {
             Ok(_) => {}
             Err(err) => {
                 return Err(err);
