@@ -3,7 +3,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct Claims {
     pub user_id: uuid::Uuid,
-    pub role: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub role: Option<String>,
     #[serde(alias = "iss")]
     pub issued: String,
     #[serde(alias = "exp")]
