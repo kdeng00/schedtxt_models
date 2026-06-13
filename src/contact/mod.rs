@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
 pub struct Contact {
     #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
     pub id: Option<uuid::Uuid>,
