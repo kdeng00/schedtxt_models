@@ -15,6 +15,5 @@ pub struct Contact {
     pub nickname: Option<String>,
     pub phone_number: String,
     // empty
-    #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
-    pub user_id: Option<uuid::Uuid>,
+    pub user_id: uuid::Uuid,
 }
