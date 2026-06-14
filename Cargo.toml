@@ -9,7 +9,7 @@ description = "Models used for the textsender project"
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = { version = "1.0.150" }
 time = { version = "0.3.49", features = ["formatting", "macros", "parsing", "serde"] }
-uuid = { version = "1.23.1", features = ["v4", "serde"] }
+uuid = { version = "1.23.3", features = ["v4", "serde"] }
 dotenvy = { version = "0.15.7" }
 const_format = { version = "0.2.36" }
 josekit = { version = "0.10.3" }
