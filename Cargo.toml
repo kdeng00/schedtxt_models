@@ -1,6 +1,6 @@
 [package]
 name = "textsender_models"
-version = "0.3.3"
+version = "0.3.4"
 edition = "2024"
 rust-version = "1.95"
 description = "Models used for the textsender project"
@@ -14,5 +14,12 @@ dotenvy = { version = "0.15.7" }
 const_format = { version = "0.2.36" }
 josekit = { version = "0.10.3" }
 utoipa = { version = "5.4.0", features = ["uuid", "time"] }
+
+[features]
+default = ["full"]
+full = ["user", "message", "contact"]
+user = []
+message = []
+contact = []
 
 [dev-dependencies]
