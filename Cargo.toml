@@ -17,9 +17,12 @@ utoipa = { version = "5.4.0", features = ["uuid", "time"] }
 
 [features]
 default = ["full"]
-full = ["user", "message", "contact"]
+full = ["user", "message", "contact", "config", "envy", "token"]
 user = []
 message = []
 contact = []
+config = []
+envy = []
+token = []
 
 [dev-dependencies]
