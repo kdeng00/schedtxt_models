@@ -1,6 +1,4 @@
-use serde::{Deserialize, Serialize};
-
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
 pub struct ScheduledMessageEvent {
     id: uuid::Uuid,
     contact_id: uuid::Uuid,
@@ -10,7 +8,7 @@ pub struct ScheduledMessageEvent {
     created: Option<time::OffsetDateTime>,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
 pub struct ScheduledMessage {
     id: uuid::Uuid,
     #[serde(with = "time::serde::rfc3339::option")]
