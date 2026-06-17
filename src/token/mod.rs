@@ -1,6 +1,6 @@
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
 pub struct Claims {
     pub user_id: uuid::Uuid,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -34,7 +34,7 @@ where
     }
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
 pub struct LoginResult {
     pub user_id: uuid::Uuid,
     pub access_token: String,
