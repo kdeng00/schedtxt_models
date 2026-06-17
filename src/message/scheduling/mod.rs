@@ -1,22 +1,22 @@
 #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
 pub struct ScheduledMessageEvent {
-    id: uuid::Uuid,
-    contact_id: uuid::Uuid,
-    message_id: uuid::Uuid,
-    scheduled_message_id: uuid::Uuid,
+    pub id: uuid::Uuid,
+    pub contact_id: uuid::Uuid,
+    pub message_id: uuid::Uuid,
+    pub scheduled_message_id: uuid::Uuid,
     #[serde(with = "time::serde::rfc3339::option")]
-    created: Option<time::OffsetDateTime>,
+    pub created: Option<time::OffsetDateTime>,
 }
 
 #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
 pub struct ScheduledMessage {
-    id: uuid::Uuid,
+    pub id: uuid::Uuid,
     #[serde(with = "time::serde::rfc3339::option")]
-    scheduled: Option<time::OffsetDateTime>,
+    pub scheduled: Option<time::OffsetDateTime>,
     #[serde(with = "time::serde::rfc3339::option")]
-    created: Option<time::OffsetDateTime>,
-    status: String,
-    user_id: uuid::Uuid,
+    pub created: Option<time::OffsetDateTime>,
+    pub status: String,
+    pub user_id: uuid::Uuid,
 }
 
 pub const READY: &str = "READY";
