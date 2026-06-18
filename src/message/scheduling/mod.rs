@@ -1,4 +1,6 @@
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct ScheduledMessageEvent {
     pub id: uuid::Uuid,
     pub contact_id: uuid::Uuid,
@@ -8,7 +10,9 @@ pub struct ScheduledMessageEvent {
     pub created: Option<time::OffsetDateTime>,
 }
 
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct ScheduledMessage {
     pub id: uuid::Uuid,
     #[serde(with = "time::serde::rfc3339::option")]

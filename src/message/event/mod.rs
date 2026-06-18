@@ -1,7 +1,9 @@
 pub const MESSAGE_EVENT_RESPONSE_STATUS_INSTANT: &str = "INSTANT";
 pub const MESSAGE_EVENT_RESPONSE_STATUS_SCHEDULED: &str = "SCHEDULED";
 
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct MessageEventResponse {
     pub id: uuid::Uuid,
     pub scheduled_message_event_id: uuid::Uuid,

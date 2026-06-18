@@ -1,4 +1,6 @@
-#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct Contact {
     #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
     pub id: Option<uuid::Uuid>,
