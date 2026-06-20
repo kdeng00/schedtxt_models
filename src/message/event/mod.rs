@@ -1,4 +1,6 @@
+/// Message status - Instant
 pub const MESSAGE_EVENT_RESPONSE_STATUS_INSTANT: &str = "INSTANT";
+/// Message status - Scheduled
 pub const MESSAGE_EVENT_RESPONSE_STATUS_SCHEDULED: &str = "SCHEDULED";
 
 #[derive(
@@ -6,7 +8,8 @@ pub const MESSAGE_EVENT_RESPONSE_STATUS_SCHEDULED: &str = "SCHEDULED";
 )]
 pub struct MessageEventResponse {
     pub id: uuid::Uuid,
-    pub scheduled_message_event_id: uuid::Uuid,
+    #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
+    pub scheduled_message_event_id: Option<uuid::Uuid>,
     /// Stores a json response of the sent message
     pub response: serde_json::Value,
     pub user_id: uuid::Uuid,
