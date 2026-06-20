@@ -8,7 +8,7 @@ pub struct MessageEventResponse {
     pub id: uuid::Uuid,
     pub scheduled_message_event_id: uuid::Uuid,
     /// Stores a json response of the sent message
-    pub response: String,
+    pub response: serde_json::Value,
     pub user_id: uuid::Uuid,
     pub contact_id: uuid::Uuid,
     pub message_id: uuid::Uuid,
