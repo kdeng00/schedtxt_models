@@ -1,3 +1,5 @@
+// TODO: Functions does not need to be async
+
 pub async fn get_db_url() -> crate::envy::EnvVar {
     dotenvy::dotenv().ok();
     let key = crate::envy::keys::DB_URL;
