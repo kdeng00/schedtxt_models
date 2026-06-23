@@ -54,7 +54,7 @@ mod util {
     pub fn time_to_std_time(
         provided_time: &time::OffsetDateTime,
     ) -> Result<std::time::SystemTime, std::time::SystemTimeError> {
-        let converted = std::time::SystemTime::from(*provided_time);
+        let converted = std::time::SystemTime::from(provided_time.to_utc());
         Ok(converted)
     }
 }
@@ -109,8 +109,8 @@ pub fn create_token(
 
             Ok(CreateTokenResult {
                 access_token: josekit::jwt::encode_with_signer(&payload, &header, &signer).unwrap(),
-                issued: (issued - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
-                expires_in: (expire - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
+                issued: issued.unix_timestamp(),
+                expires_in: expire.unix_timestamp(),
                 token_issued: issued,
             })
         }
@@ -141,7 +141,15 @@ mod tests {
         match super::create_token(&key, &token_resource, token_duration) {
             Ok(cst) => match time::OffsetDateTime::from_unix_timestamp(cst.issued) {
                 Ok(d_result) => {
-                    assert_eq!(d_result, cst.token_issued, "Issued times do not match");
+                    let they_match = {
+                        d_result.year() == cst.token_issued.year()
+                            && d_result.month() == cst.token_issued.month()
+                            && d_result.day() == cst.token_issued.day()
+                            && d_result.hour() == cst.token_issued.hour()
+                            && d_result.minute() == cst.token_issued.minute()
+                            && d_result.second() == cst.token_issued.second()
+                    };
+                    assert!(they_match, "Issued times do not match");
                 }
                 Err(err) => {
                     assert!(false, "Error: {err:?}");
