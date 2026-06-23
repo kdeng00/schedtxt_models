@@ -70,11 +70,17 @@ pub struct TokenResource {
 /// Token type
 pub const TOKEN_TYPE: &str = "JWT";
 
+pub struct CreateTokenResult {
+    pub access_token: String,
+    pub issued: i64,
+    pub expires_in: i64,
+}
+
 pub fn create_token(
     key: &String,
     token_resource: &TokenResource,
     duration: time::Duration,
-) -> Result<(String, i64), josekit::JoseError> {
+) -> Result<CreateTokenResult, josekit::JoseError> {
     let mut header = josekit::jws::JwsHeader::new();
     header.set_token_type(TOKEN_TYPE);
 
@@ -102,10 +108,12 @@ pub fn create_token(
             let signer = josekit::jws::alg::hmac::HmacJwsAlgorithm::Hs256
                 .signer_from_bytes(key.as_bytes())
                 .unwrap();
-            Ok((
-                josekit::jwt::encode_with_signer(&payload, &header, &signer).unwrap(),
-                (expire - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
-            ))
+
+            Ok(CreateTokenResult {
+                access_token: josekit::jwt::encode_with_signer(&payload, &header, &signer).unwrap(),
+                issued: (expire - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
+                expires_in: (issued - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
+            })
         }
         Err(e) => Err(josekit::JoseError::InvalidClaim(e.into())),
     }
