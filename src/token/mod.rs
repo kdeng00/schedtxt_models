@@ -74,6 +74,7 @@ pub struct CreateTokenResult {
     pub access_token: String,
     pub issued: i64,
     pub expires_in: i64,
+    pub token_issued: time::OffsetDateTime,
 }
 
 pub fn create_token(
@@ -85,12 +86,9 @@ pub fn create_token(
     header.set_token_type(TOKEN_TYPE);
 
     let mut payload = josekit::jwt::JwtPayload::new();
-    let message = &token_resource.message;
-    let issuer = &token_resource.issuer;
-    let audiences: &Vec<String> = &token_resource.audiences;
-    payload.set_subject(message);
-    payload.set_issuer(issuer);
-    payload.set_audience(audiences.clone());
+    payload.set_subject(&token_resource.message);
+    payload.set_issuer(&token_resource.issuer);
+    payload.set_audience(token_resource.audiences.clone());
     if !token_resource.user_id.is_nil() {
         match payload.set_claim("user_id", Some(serde_json::json!(token_resource.user_id))) {
             Ok(_) => {}
@@ -111,10 +109,47 @@ pub fn create_token(
 
             Ok(CreateTokenResult {
                 access_token: josekit::jwt::encode_with_signer(&payload, &header, &signer).unwrap(),
-                issued: (expire - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
-                expires_in: (issued - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
+                issued: (issued - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
+                expires_in: (expire - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
+                token_issued: issued,
             })
         }
         Err(e) => Err(josekit::JoseError::InvalidClaim(e.into())),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    const TEST_MESSAGE: &str = "Testing for textsender";
+    const TEST_ISSUER: &str = "textsender-test";
+    const TEST_AUDIENCE: &str = "area-test";
+    const TEST_USER_ID: uuid::Uuid = uuid::uuid!("9ab1c75f-d184-4913-ae99-544b4dcfcb41");
+    const TEST_KEY: &str = "8342nhf7ycrt4983q7ryfc93w478ryfc3w9487ryfc342w98i7cy";
+
+    #[test]
+    fn test_create_token() {
+        let token_resource = super::TokenResource {
+            message: String::from(TEST_MESSAGE),
+            issuer: String::from(TEST_ISSUER),
+            audiences: vec![String::from(TEST_AUDIENCE)],
+            user_id: TEST_USER_ID,
+        };
+
+        let token_duration = time::Duration::minutes(30);
+        let key = String::from(TEST_KEY);
+
+        match super::create_token(&key, &token_resource, token_duration) {
+            Ok(cst) => match time::OffsetDateTime::from_unix_timestamp(cst.issued) {
+                Ok(d_result) => {
+                    assert_eq!(d_result, cst.token_issued, "Issued times do not match");
+                }
+                Err(err) => {
+                    assert!(false, "Error: {err:?}");
+                }
+            },
+            Err(err) => {
+                assert!(false, "Error: {err:?}");
+            }
+        }
     }
 }
