@@ -54,7 +54,7 @@ mod util {
     pub fn time_to_std_time(
         provided_time: &time::OffsetDateTime,
     ) -> Result<std::time::SystemTime, std::time::SystemTimeError> {
-        let converted = std::time::SystemTime::from(provided_time.to_utc());
+        let converted: std::time::SystemTime = provided_time.clone().into();
         Ok(converted)
     }
 }
