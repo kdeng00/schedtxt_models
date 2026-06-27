@@ -1,6 +1,6 @@
-use serde::{Deserialize, Serialize};
-
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct User {
     pub id: uuid::Uuid,
     pub phone_number: String,
@@ -18,7 +18,9 @@ pub struct User {
     pub salt_id: uuid::Uuid,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct ServiceUser {
     pub id: uuid::Uuid,
     pub username: String,
@@ -32,7 +34,9 @@ pub struct ServiceUser {
     pub salt_id: uuid::Uuid,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct Organization {
     pub id: uuid::Uuid,
     pub name: String,
@@ -40,7 +44,9 @@ pub struct Organization {
     pub created: Option<time::OffsetDateTime>,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct UserLoginHistory {
     pub id: uuid::Uuid,
     #[serde(with = "time::serde::rfc3339::option")]
@@ -48,7 +54,9 @@ pub struct UserLoginHistory {
     pub user_id: uuid::Uuid,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct ServiceUserLoginHistory {
     pub id: uuid::Uuid,
     #[serde(with = "time::serde::rfc3339::option")]
@@ -56,7 +64,9 @@ pub struct ServiceUserLoginHistory {
     pub service_user_id: uuid::Uuid,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow, utoipa::ToSchema,
+)]
 pub struct UserProfile {
     pub user_id: uuid::Uuid,
     pub phone_number: String,
@@ -69,7 +79,7 @@ pub struct UserProfile {
     pub last_login: Option<time::OffsetDateTime>,
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow)]
 pub struct Salt {
     // #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
     pub id: uuid::Uuid,

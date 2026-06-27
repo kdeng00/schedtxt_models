@@ -1,6 +1,6 @@
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize)]
 pub struct Claims {
     pub user_id: uuid::Uuid,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -34,7 +34,7 @@ where
     }
 }
 
-#[derive(Clone, Debug, Default, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, utoipa::ToSchema)]
 pub struct LoginResult {
     pub user_id: uuid::Uuid,
     pub access_token: String,
@@ -54,7 +54,7 @@ mod util {
     pub fn time_to_std_time(
         provided_time: &time::OffsetDateTime,
     ) -> Result<std::time::SystemTime, std::time::SystemTimeError> {
-        let converted = std::time::SystemTime::from(*provided_time);
+        let converted: std::time::SystemTime = (*provided_time).into();
         Ok(converted)
     }
 }
@@ -70,21 +70,25 @@ pub struct TokenResource {
 /// Token type
 pub const TOKEN_TYPE: &str = "JWT";
 
+pub struct CreateTokenResult {
+    pub access_token: String,
+    pub issued: i64,
+    pub expires_in: i64,
+    pub token_issued: time::OffsetDateTime,
+}
+
 pub fn create_token(
     key: &String,
     token_resource: &TokenResource,
     duration: time::Duration,
-) -> Result<(String, i64), josekit::JoseError> {
+) -> Result<CreateTokenResult, josekit::JoseError> {
     let mut header = josekit::jws::JwsHeader::new();
     header.set_token_type(TOKEN_TYPE);
 
     let mut payload = josekit::jwt::JwtPayload::new();
-    let message = &token_resource.message;
-    let issuer = &token_resource.issuer;
-    let audiences: &Vec<String> = &token_resource.audiences;
-    payload.set_subject(message);
-    payload.set_issuer(issuer);
-    payload.set_audience(audiences.clone());
+    payload.set_subject(&token_resource.message);
+    payload.set_issuer(&token_resource.issuer);
+    payload.set_audience(token_resource.audiences.clone());
     if !token_resource.user_id.is_nil() {
         match payload.set_claim("user_id", Some(serde_json::json!(token_resource.user_id))) {
             Ok(_) => {}
@@ -102,11 +106,58 @@ pub fn create_token(
             let signer = josekit::jws::alg::hmac::HmacJwsAlgorithm::Hs256
                 .signer_from_bytes(key.as_bytes())
                 .unwrap();
-            Ok((
-                josekit::jwt::encode_with_signer(&payload, &header, &signer).unwrap(),
-                (expire - time::OffsetDateTime::UNIX_EPOCH).whole_seconds(),
-            ))
+
+            Ok(CreateTokenResult {
+                access_token: josekit::jwt::encode_with_signer(&payload, &header, &signer).unwrap(),
+                issued: issued.unix_timestamp(),
+                expires_in: expire.unix_timestamp(),
+                token_issued: issued,
+            })
         }
         Err(e) => Err(josekit::JoseError::InvalidClaim(e.into())),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    const TEST_MESSAGE: &str = "Testing for textsender";
+    const TEST_ISSUER: &str = "textsender-test";
+    const TEST_AUDIENCE: &str = "area-test";
+    const TEST_USER_ID: uuid::Uuid = uuid::uuid!("9ab1c75f-d184-4913-ae99-544b4dcfcb41");
+    const TEST_KEY: &str = "8342nhf7ycrt4983q7ryfc93w478ryfc3w9487ryfc342w98i7cy";
+
+    #[test]
+    fn test_create_token() {
+        let token_resource = super::TokenResource {
+            message: String::from(TEST_MESSAGE),
+            issuer: String::from(TEST_ISSUER),
+            audiences: vec![String::from(TEST_AUDIENCE)],
+            user_id: TEST_USER_ID,
+        };
+
+        let token_duration = time::Duration::minutes(30);
+        let key = String::from(TEST_KEY);
+
+        match super::create_token(&key, &token_resource, token_duration) {
+            Ok(cst) => match time::OffsetDateTime::from_unix_timestamp(cst.issued) {
+                Ok(d_result) => {
+                    let they_match = {
+                        d_result.year() == cst.token_issued.year()
+                            && d_result.month() == cst.token_issued.month()
+                            && d_result.day() == cst.token_issued.day()
+                            && d_result.hour() == cst.token_issued.hour()
+                            && d_result.minute() == cst.token_issued.minute()
+                            && d_result.second() == cst.token_issued.second()
+                    };
+                    assert!(they_match, "Issued times do not match");
+                }
+                Err(err) => {
+                    assert!(false, "Error: {err:?}");
+                }
+            },
+            Err(err) => {
+                assert!(false, "Error: {err:?}");
+            }
+        }
     }
 }
