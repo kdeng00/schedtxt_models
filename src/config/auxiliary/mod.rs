@@ -20,12 +20,11 @@ impl TwilioConfig {
     }
 }
 
-// TODO: Remove the async at a later point
-pub async fn load_config() -> Result<TwilioConfig, std::io::Error> {
-    let auth_sid_var = crate::envy::environment::get_env("TWILIO_AUTH_SID").await;
-    let service_sid_var = crate::envy::environment::get_env("TWILIO_SERVICE_SID").await;
-    let auth_token_var = crate::envy::environment::get_env("TWILIO_AUTH_TOKEN").await;
-    let phone_number_var = crate::envy::environment::get_env("TWILIO_PHONE_NUMBER").await;
+pub fn load_config() -> Result<TwilioConfig, std::io::Error> {
+    let auth_sid_var = crate::envy::environment::get_env("TWILIO_AUTH_SID");
+    let service_sid_var = crate::envy::environment::get_env("TWILIO_SERVICE_SID");
+    let auth_token_var = crate::envy::environment::get_env("TWILIO_AUTH_TOKEN");
+    let phone_number_var = crate::envy::environment::get_env("TWILIO_PHONE_NUMBER");
 
     if auth_sid_var.value.is_empty()
         || service_sid_var.value.is_empty()
