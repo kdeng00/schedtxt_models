@@ -85,10 +85,50 @@ pub fn create_token(
     let mut header = josekit::jws::JwsHeader::new();
     header.set_token_type(TOKEN_TYPE);
 
+    match init_payload(token_resource, duration) {
+        Ok((payload, issued, expire)) => {
+            let signer = match josekit::jws::alg::hmac::HmacJwsAlgorithm::Hs256
+                .signer_from_bytes(key.as_bytes())
+            {
+                Ok(signer) => signer,
+                Err(err) => {
+                    return Err(err);
+                }
+            };
+            let access_token = match josekit::jwt::encode_with_signer(&payload, &header, &signer) {
+                Ok(access_token) => access_token,
+                Err(err) => {
+                    return Err(err);
+                }
+            };
+
+            Ok(CreateTokenResult {
+                access_token: access_token,
+                issued: issued.unix_timestamp(),
+                expires_in: expire.unix_timestamp(),
+                token_issued: issued,
+            })
+        }
+        Err(e) => Err(josekit::JoseError::InvalidClaim(e.into())),
+    }
+}
+
+fn init_payload(
+    token_resource: &TokenResource,
+    duration: time::Duration,
+) -> Result<
+    (
+        josekit::jwt::JwtPayload,
+        time::OffsetDateTime,
+        time::OffsetDateTime,
+    ),
+    josekit::JoseError,
+> {
     let mut payload = josekit::jwt::JwtPayload::new();
     payload.set_subject(&token_resource.message);
     payload.set_issuer(&token_resource.issuer);
     payload.set_audience(token_resource.audiences.clone());
+
     if !token_resource.user_id.is_nil() {
         match payload.set_claim("user_id", Some(serde_json::json!(token_resource.user_id))) {
             Ok(_) => {}
@@ -97,24 +137,38 @@ pub fn create_token(
             }
         }
     }
+
+    match init_payload_issued(&mut payload, duration) {
+        Ok((issued, expire)) => Ok((payload, issued, expire)),
+        Err(err) => Err(err),
+    }
+}
+
+fn init_payload_issued(
+    payload: &mut josekit::jwt::JwtPayload,
+    duration: time::Duration,
+) -> Result<(time::OffsetDateTime, time::OffsetDateTime), josekit::JoseError> {
     match get_issued() {
         Ok(issued) => {
             let expire = issued + duration;
-            payload.set_issued_at(&util::time_to_std_time(&issued).unwrap());
-            payload.set_expires_at(&util::time_to_std_time(&expire).unwrap());
+            let issued_at = match util::time_to_std_time(&issued) {
+                Ok(issued_at) => issued_at,
+                Err(err) => {
+                    return Err(josekit::JoseError::InvalidClaim(err.into()));
+                }
+            };
+            let expires_at = match util::time_to_std_time(&expire) {
+                Ok(expires_at) => expires_at,
+                Err(err) => {
+                    return Err(josekit::JoseError::InvalidClaim(err.into()));
+                }
+            };
 
-            let signer = josekit::jws::alg::hmac::HmacJwsAlgorithm::Hs256
-                .signer_from_bytes(key.as_bytes())
-                .unwrap();
-
-            Ok(CreateTokenResult {
-                access_token: josekit::jwt::encode_with_signer(&payload, &header, &signer).unwrap(),
-                issued: issued.unix_timestamp(),
-                expires_in: expire.unix_timestamp(),
-                token_issued: issued,
-            })
+            payload.set_issued_at(&issued_at);
+            payload.set_expires_at(&expires_at);
+            Ok((issued, expire))
         }
-        Err(e) => Err(josekit::JoseError::InvalidClaim(e.into())),
+        Err(err) => Err(josekit::JoseError::InvalidClaim(err.into())),
     }
 }
 
