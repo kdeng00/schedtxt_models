@@ -103,7 +103,7 @@ pub fn create_token(
             };
 
             Ok(CreateTokenResult {
-                access_token: access_token,
+                access_token,
                 issued: issued.unix_timestamp(),
                 expires_in: expire.unix_timestamp(),
                 token_issued: issued,
