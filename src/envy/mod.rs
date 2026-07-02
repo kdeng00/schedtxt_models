@@ -20,16 +20,17 @@ pub fn init_envvar(key: &str, value: &str) -> EnvVar {
 }
 
 pub fn init_delimiter(envvar: &mut EnvVar, delimiter: char) {
-    let mut amount_of_delimiters_found: i32 = 0;
-
-    for v in envvar.value.chars() {
-        if v == delimiter {
-            amount_of_delimiters_found += 1;
+    let amount_of_delimiters_found: i32 = {
+        let mut count = 0;
+        for v in envvar.value.chars() {
+            if v == delimiter {
+                count += 1;
+            }
         }
-    }
 
+        count
+    };
     let has_delimiter = amount_of_delimiters_found >= 1;
-
     if has_delimiter {
         envvar.has_delimiter = has_delimiter;
         envvar.delimiter = delimiter;
