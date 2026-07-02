@@ -6,9 +6,7 @@ pub struct User {
     pub phone_number: String,
     pub username: String,
     pub password: String,
-    // Firstname is a pointer
     pub firstname: String,
-    // Lastname is a pointer
     pub lastname: String,
     #[serde(with = "time::serde::rfc3339::option")]
     pub created: Option<time::OffsetDateTime>,
@@ -27,7 +25,6 @@ pub struct ServiceUser {
     pub passphrase: String,
     #[serde(with = "time::serde::rfc3339::option")]
     pub created: Option<time::OffsetDateTime>,
-    // When serializing to json, if empty do not populate
     #[serde(with = "time::serde::rfc3339::option")]
     pub last_login: Option<time::OffsetDateTime>,
     #[serde(skip)]
@@ -81,7 +78,6 @@ pub struct UserProfile {
 
 #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, sqlx::FromRow)]
 pub struct Salt {
-    // #[serde(skip_serializing_if = "crate::init::is_uuid_nil")]
     pub id: uuid::Uuid,
     #[serde(skip_serializing_if = "String::is_empty")]
     pub salt: String,
