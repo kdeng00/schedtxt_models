@@ -79,7 +79,7 @@ pub struct CreateTokenResult {
 
 pub fn create_token(
     key: &str,
-    token_resource: &TokenResource,
+    token_resource: TokenResource,
     duration: time::Duration,
 ) -> Result<CreateTokenResult, josekit::JoseError> {
     let mut header = josekit::jws::JwsHeader::new();
@@ -114,7 +114,7 @@ pub fn create_token(
 }
 
 fn init_payload(
-    token_resource: &TokenResource,
+    token_resource: TokenResource,
     duration: time::Duration,
 ) -> Result<
     (
@@ -125,9 +125,9 @@ fn init_payload(
     josekit::JoseError,
 > {
     let mut payload = josekit::jwt::JwtPayload::new();
-    payload.set_subject(&token_resource.message);
-    payload.set_issuer(&token_resource.issuer);
-    payload.set_audience(token_resource.audiences.clone());
+    payload.set_subject(token_resource.message);
+    payload.set_issuer(token_resource.issuer);
+    payload.set_audience(token_resource.audiences);
 
     if !token_resource.user_id.is_nil() {
         match payload.set_claim("user_id", Some(serde_json::json!(token_resource.user_id))) {
@@ -192,7 +192,7 @@ mod tests {
         let token_duration = time::Duration::minutes(30);
         let key = String::from(TEST_KEY);
 
-        match super::create_token(&key, &token_resource, token_duration) {
+        match super::create_token(&key, token_resource, token_duration) {
             Ok(cst) => match time::OffsetDateTime::from_unix_timestamp(cst.issued) {
                 Ok(d_result) => {
                     let they_match = {
