@@ -2,11 +2,19 @@
 /// extract it into some strings
 pub fn delimitize(var: &crate::envy::EnvVar) -> Result<Vec<String>, std::io::Error> {
     if var.has_delimiter {
-        Ok(var
+        let values: Vec<String> = match var
             .value
             .split(var.delimiter)
-            .map(|c| c.parse::<String>().unwrap())
-            .collect())
+            .map(|c| c.parse::<String>())
+            .collect()
+        {
+            Ok(v) => v,
+            Err(err) => {
+                return Err(std::io::Error::other(err));
+            }
+        };
+
+        Ok(values)
     } else {
         Err(std::io::Error::other(
             "Environment variable does not have a delimiter",
@@ -26,7 +34,12 @@ mod tests {
             has_delimiter: true,
             delimiter: '|',
         };
-        let all_values = vec!["Atlantic".to_string(), "Pacific".to_string(), "Indian".to_string(), "Arctic".to_string()];
+        let all_values = vec![
+            "Atlantic".to_string(),
+            "Pacific".to_string(),
+            "Indian".to_string(),
+            "Arctic".to_string(),
+        ];
 
         match delimitize(&envvar) {
             Ok(values) => {
