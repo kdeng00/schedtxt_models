@@ -78,7 +78,7 @@ pub struct CreateTokenResult {
 }
 
 pub fn create_token(
-    key: &String,
+    key: &str,
     token_resource: &TokenResource,
     duration: time::Duration,
 ) -> Result<CreateTokenResult, josekit::JoseError> {
