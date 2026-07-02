@@ -37,3 +37,20 @@ pub fn init_delimiter(envvar: &mut EnvVar, delimiter: char) {
         envvar.has_delimiter = has_delimiter;
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_init_delimiter() {
+        let delimiter: char = ',';
+        let value = format!("red,green,white,black");
+        let mut env_var = super::EnvVar {
+            key: String::from("COLORS"),
+            value: value.clone(),
+            ..Default::default()
+        };
+
+        super::init_delimiter(&mut env_var, delimiter);
+        assert_eq!(value, env_var.value, "Colors do not match");
+    }
+}
