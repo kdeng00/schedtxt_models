@@ -40,7 +40,7 @@ pub fn get_root_directory() -> crate::envy::EnvVar {
 
 pub fn get_app_base_api_url() -> crate::envy::EnvVar {
     dotenvy::dotenv().ok();
-    let key = crate::envy::keys::TEXTSENDER_BASE_API_URL;
+    let key = crate::envy::keys::SCHEDTXT_BASE_API_URL;
     let value = std::env::var(key).expect(key);
 
     crate::envy::init_envvar(key, &value)
@@ -48,7 +48,7 @@ pub fn get_app_base_api_url() -> crate::envy::EnvVar {
 
 pub fn get_app_auth_base_api_url() -> crate::envy::EnvVar {
     dotenvy::dotenv().ok();
-    let key = crate::envy::keys::TEXTSENDER_AUTH_BASE_API_URL;
+    let key = crate::envy::keys::SCHEDTXT_AUTH_BASE_API_URL;
     let value = std::env::var(key).expect(key);
 
     crate::envy::init_envvar(key, &value)
