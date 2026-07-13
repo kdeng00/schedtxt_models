@@ -10,7 +10,7 @@ serde = { version = "1.0.228", features = ["derive"] }
 serde_json = { version = "1.0.150" }
 time = { version = "0.3.53", features = ["formatting", "macros", "parsing", "serde"] }
 sqlx = { version = "0.9.0", features = ["runtime-tokio", "tls-native-tls", "postgres", "time", "uuid"] }
-uuid = { version = "1.23.4", features = ["v4", "serde"] }
+uuid = { version = "1.23.5", features = ["v4", "serde"] }
 dotenvy = { version = "0.15.7" }
 const_format = { version = "0.2.36" }
 josekit = { version = "0.10.3" }
