@@ -1,9 +1,9 @@
 [package]
-name = "textsender_models"
+name = "schedtxt_models"
 version = "0.5.2"
 edition = "2024"
 rust-version = "1.97"
-description = "Models used for the textsender project"
+description = "Models used for the schedtxt project"
 
 [dependencies]
 serde = { version = "1.0.228", features = ["derive"] }
