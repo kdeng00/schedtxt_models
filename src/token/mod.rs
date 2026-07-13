@@ -174,8 +174,8 @@ fn init_payload_issued(
 
 #[cfg(test)]
 mod tests {
-    const TEST_MESSAGE: &str = "Testing for textsender";
-    const TEST_ISSUER: &str = "textsender-test";
+    const TEST_MESSAGE: &str = "Testing for schedtxt";
+    const TEST_ISSUER: &str = "schedtxt-test";
     const TEST_AUDIENCE: &str = "area-test";
     const TEST_USER_ID: uuid::Uuid = uuid::uuid!("9ab1c75f-d184-4913-ae99-544b4dcfcb41");
     const TEST_KEY: &str = "8342nhf7ycrt4983q7ryfc93w478ryfc3w9487ryfc342w98i7cy";

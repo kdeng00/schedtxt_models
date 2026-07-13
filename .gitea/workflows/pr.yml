@@ -1,4 +1,4 @@
-name: textsender_models PR
+name: schedtxt_models PR
 
 on:
   pull_request:
