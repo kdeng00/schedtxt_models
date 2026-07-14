@@ -3,6 +3,7 @@ name = "schedtxt_models"
 version = "0.5.3"
 edition = "2024"
 rust-version = "1.97"
+license = "MIT"
 description = "Models used for the schedtxt project"
 
 [dependencies]
