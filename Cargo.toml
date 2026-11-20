@@ -15,7 +15,7 @@ uuid = { version = "1.23.5", features = ["v4", "serde"] }
 dotenvy = { version = "0.15.7" }
 const_format = { version = "0.2.36" }
 josekit = { version = "0.10.3" }
-utoipa = { version = "5.5.0", features = ["uuid", "time"] }
+utoipa = { version = "6.0.0", features = ["uuid", "time"] }
 
 [features]
 default = ["full"]
