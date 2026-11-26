@@ -2,7 +2,7 @@
 name = "schedtxt_models"
 version = "0.5.4"
 edition = "2024"
-rust-version = "1.97"
+rust-version = "1.99.1"
 license = "MIT"
 description = "Models used for the schedtxt project"
 
