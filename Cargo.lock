@@ -650,9 +650,9 @@ checksum = "3bd1574e617a9a6c1f8f8181bd7e841e1f20e4277607ef28945765188d6284d4"
 
 [[package]]
 name = "josekit"
-version = "0.10.3"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a808e078330e6af222eb0044b71d4b1ff981bfef43e7bc8133a88234e0c86a0c"
+checksum = "675d8aa1714e81aac482220a68d0911da78e8a1bbbaf54da2ccf67b58d4d3a7b"
 dependencies = [
  "anyhow",
  "base64",
@@ -1050,7 +1050,7 @@ dependencies = [
 
 [[package]]
 name = "schedtxt_models"
-version = "0.5.4"
+version = "0.5.5"
 dependencies = [
  "const_format",
  "dotenvy",
