@@ -14,7 +14,7 @@ sqlx = { version = "0.9.1", features = ["runtime-tokio", "tls-native-tls", "post
 uuid = { version = "1.29.3", features = ["v4", "serde"] }
 dotenvy = { version = "0.15.7" }
 const_format = { version = "0.2.37" }
-josekit = { version = "0.10.3" }
+josekit = { version = "0.11.0" }
 utoipa = { version = "6.0.0", features = ["uuid", "time"] }
 
 [features]
